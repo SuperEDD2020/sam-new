@@ -1,0 +1,39 @@
+package com.build.qa.build.selenium.pageobjects.homepage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+
+import com.build.qa.build.selenium.pageobjects.BasePage;
+
+public class HomePage extends BasePage {
+	
+	private By buildThemeBody;
+	@FindBy (id = "search_txt")
+	private WebElement searchBar;
+
+	@FindBy (css = "button.close.js-modal-close")
+    private WebElement closeAdBtn;
+	
+	public HomePage(WebDriver driver, Wait<WebDriver> wait) {
+		super(driver, wait);
+		buildThemeBody = By.cssSelector("body.build-theme");
+	}
+	
+	public boolean onBuildTheme() { 
+		return wait.until(ExpectedConditions.presenceOfElementLocated(buildThemeBody)) != null;
+	}
+
+	public void searchFromSearchBar(String searchRequest){
+		searchBar.sendKeys(searchRequest);
+		searchBar.sendKeys(Keys.RETURN);
+	}
+
+	public void closeAd(){
+	    closeAdBtn.click();
+    }
+}
